@@ -25,6 +25,10 @@ import com.google.android.exoplayer2.text.TextOutput;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.ui.SubtitleView;
 
+import com.google.android.exoplayer2.text.CaptionStyleCompat;
+import android.graphics.Color;
+import android.graphics.Typeface;
+
 import java.util.List;
 
 @TargetApi(16)
@@ -38,6 +42,7 @@ public final class ExoPlayerView extends FrameLayout {
     private SimpleExoPlayer player;
     private Context context;
     private ViewGroup.LayoutParams layoutParams;
+    private CaptionStyleCompat style;
 
     private boolean useTextureView = true;
     private boolean hideShutterView = false;
@@ -84,6 +89,26 @@ public final class ExoPlayerView extends FrameLayout {
 
         addViewInLayout(layout, 0, aspectRatioParams);
     }
+
+    public void setFontSizeTrack(int fontSizeTrack) {
+
+        subtitleLayout.setFixedTextSize(2, fontSizeTrack );  
+    }
+
+    public void setSubtitleStyles(String subtitleColor, String subtitleOutlineColor) {
+
+    CaptionStyleCompat style =
+            new CaptionStyleCompat(
+            Color.parseColor(subtitleColor),
+            Color.TRANSPARENT, 
+            Color.TRANSPARENT,
+            CaptionStyleCompat.EDGE_TYPE_OUTLINE,// CaptionStyleCompat.EDGE_TYPE_NONE,
+            Color.parseColor(subtitleOutlineColor),// int outlineColor = Color.argb(255, 43, 43, 43);
+            /* typeface= */ null 
+            );
+            subtitleLayout.setStyle(style);
+
+        }    
 
     private void setVideoView() {
         if (surfaceView instanceof TextureView) {

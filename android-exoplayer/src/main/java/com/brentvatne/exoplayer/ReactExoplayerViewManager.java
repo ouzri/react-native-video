@@ -70,7 +70,11 @@ public class ReactExoplayerViewManager extends ViewGroupManager<ReactExoplayerVi
     private static final String PROP_SELECTED_VIDEO_TRACK_VALUE = "value";
     private static final String PROP_HIDE_SHUTTER_VIEW = "hideShutterView";
     private static final String PROP_CONTROLS = "controls";
-
+    private static final String PROP_FRONT_SIZE_TRACK = "fontSizeTrack";
+    private static final String PROP_Subtitle_Styles = "subtitleStyles";
+    private static final String PROP_Subtitle_Color = "subtitleColor";
+    private static final String PROP_SubtitleOutlineColor = "subtitleOutlineColor";
+    
     private ReactExoplayerConfig config;
 
     public ReactExoplayerViewManager(ReactExoplayerConfig config) {
@@ -271,6 +275,29 @@ public class ReactExoplayerViewManager extends ViewGroupManager<ReactExoplayerVi
     @ReactProp(name = PROP_RATE)
     public void setRate(final ReactExoplayerView videoView, final float rate) {
         videoView.setRateModifier(rate);
+    }
+    
+    @ReactProp(name = PROP_FRONT_SIZE_TRACK, defaultInt = 30)
+    public void setFontSizeTrack(final ReactExoplayerView videoView, final int fontSizeTrack) {
+        videoView.setFontSizeTrack(fontSizeTrack);
+    }
+
+    @ReactProp(name = PROP_Subtitle_Styles)
+    public void setSubtitleStyles(final ReactExoplayerView videoView, @Nullable ReadableMap subtitleStyles) {
+    
+    String subtitleColor = "#ffffff";
+    String subtitleOutlineColor = "#000000";
+
+        if (subtitleStyles != null) {
+
+            subtitleColor = subtitleStyles.hasKey(PROP_Subtitle_Color)
+                    ? subtitleStyles.getString(PROP_Subtitle_Color) : "#ffffff";
+
+            subtitleOutlineColor = subtitleStyles.hasKey(PROP_SubtitleOutlineColor)
+                    ? subtitleStyles.getString(PROP_SubtitleOutlineColor) : "#000000";
+        }
+
+        videoView.setSubtitleStyles(subtitleColor, subtitleOutlineColor);
     }
 
     @ReactProp(name = PROP_MAXIMUM_BIT_RATE)

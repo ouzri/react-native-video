@@ -1169,6 +1169,15 @@ class ReactExoplayerView extends FrameLayout implements
         trackSelector.setParameters(selectionParameters);
     }
 
+     public void setFontSizeTrack(int fontSizeTrack) {
+        exoPlayerView.setFontSizeTrack(fontSizeTrack);
+    }
+
+    public void setSubtitleStyles(String subtitleColor, String subtitleOutlineColor) {
+       
+        exoPlayerView.setSubtitleStyles(subtitleColor, subtitleOutlineColor);
+    }
+
     private int getGroupIndexForDefaultLocale(TrackGroupArray groups) {
         if (groups.length == 0){
             return C.INDEX_UNSET;
